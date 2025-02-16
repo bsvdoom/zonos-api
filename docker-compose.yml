@@ -10,9 +10,9 @@ services:
         GIT_SUBMODULE_UPDATE: 1  # Enable submodule update during build
     image: zonos-api:latest
     ports:
-      - "8000:8000"
+      - "8012:8012"
     environment:
-      - PORT=8000
+      - PORT=8012
       - WORKERS=4
       - MODEL_TYPE=Transformer
       - MODEL_CACHE_DIR=/home/appuser/.cache/huggingface
@@ -32,12 +32,28 @@ services:
         limits:
           memory: 16G
           cpus: '8'
+        reservations:
           devices:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+#    devices:
+#      - driver: nvidia
+#        count: all
+#        capabilities: [gpu]
+
+#    devices:
+#      - /dev/nvidia0:/dev/nvidia0
+#    environment:
+#      - NVIDIA_VISIBLE_DEVICES=all
+#    runtime: nvidia
+
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8012/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -86,4 +102,4 @@ volumes:
   prometheus_data:
     driver: local
   grafana_data:
-    driver: local 
+    driver: local

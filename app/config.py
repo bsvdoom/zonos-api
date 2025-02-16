@@ -9,9 +9,10 @@ class Settings(BaseSettings):
     API_VERSION: str = "0.1.0"
     
     # Server Settings
-    PORT: int = 8000
+    PORT: int = 8012
     WORKERS: int = 4
     
+    # Model Settings
     # Model Settings
     MODEL_TYPE: str = "Transformer"  # "Transformer" or "Hybrid"
     MODEL_NAMES: dict = {
@@ -28,7 +29,13 @@ class Settings(BaseSettings):
     # Cache Settings
     MODEL_CACHE_DIR: Optional[str] = None
     
+    # Model Type Mapping for Model Loading
+#    MODEL_TYPE_MAPPING: dict = {
+ #       "Transformer": "transformer",
+  #      "Hybrid": "hybrid"
+   # }
+
     class Config:
         env_file = ".env"
 
-settings = Settings() 
+settings = Settings()

@@ -51,3 +51,6 @@ htmlcov/
 
 # Docker
 .docker/ 
+
+# Zonos
+Zonos/
